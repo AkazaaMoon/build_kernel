@@ -1,0 +1,28 @@
+env: 
+#  ENCRYPTED
+    CREDENTIALS: ""
+    USER_NAME: ""
+    USER_EMAIL: ""
+    BUILD_USER: ""
+    BUILD_HOST: ""
+    TG_TOKEN: ""
+    TG_CHAT_ID: ""
+    
+#  CIRRUS CONFIG
+    CIRRUS_CLONE_DEPTH: 1
+    CIRRUS_WORKING_DIR: /tmp/cirrus-ci-build
+       
+task:
+  name: "Kernel Build.."
+  timeout_in: 1h
+  container:
+      image: anggit86/docker:cirrus
+      cpu: 8
+      memory: 32G
+      
+  Credentials_script:
+      - git config --global user.name "$USER_NAME"
+      - git config --global user.email "$USER_EMAIL"
+      - echo "$CREDENTIALS" > ~/.git-credentials
+      - git config --global credential.helper store --file=~/.git-credentials
+      - export TZ=Asia/Jakarta
