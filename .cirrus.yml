@@ -26,3 +26,6 @@ task:
       - echo "$CREDENTIALS" > ~/.git-credentials
       - git config --global credential.helper store --file=~/.git-credentials
       - export TZ=Asia/Jakarta
+
+  Sync_script:
+      - ./sync.sh
