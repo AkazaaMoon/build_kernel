@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Kernel Sources!
-git clone --depth=1 https://github.com/c3eru/kernel_citrus -b snowcone $CIRRUS_WORKING_DIR/KERNEL
+git clone --depth=1 https://github.com/c3eru/kernel_xiaomi_chime -b tithonia $CIRRUS_WORKING_DIR/KERNEL
 
 # Tool Chain
 # Proton Clang ---
