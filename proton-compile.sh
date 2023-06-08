@@ -10,7 +10,7 @@ export KBUILD_COMPILER_STRING="$CLANG_VER with $LLD_VER"
 
 KERNEL_ROOTDIR=$CIRRUS_WORKING_DIR/KERNEL
 
-DEVICE_DEFCONFIG=vendor/xiaomi/bengal_defconfig
+DEVICE_DEFCONFIG=vendor/citrus-perf_defconfig
 
 IMGS=$KERNEL_ROOTDIR/out/arch/arm64/boot/Image
 
@@ -63,8 +63,8 @@ fi
 git clone --depth=1 https://github.com/c3eru/anykernel -b patch $CIRRUS_WORKING_DIR/AnyKernel
 
 cp $IMGS $CIRRUS_WORKING_DIR/AnyKernel
-cp $KERNEL_ROOTDIR/out/arch/arm64/boot/dtbo.img $CIRRUS_WORKING_DIR/AnyKernel
-cp $KERNEL_ROOTDIR/out/arch/arm64/boot/dtb.img $CIRRUS_WORKING_DIR/AnyKernel
+# cp $KERNEL_ROOTDIR/out/arch/arm64/boot/dtbo.img $CIRRUS_WORKING_DIR/AnyKernel
+# cp $KERNEL_ROOTDIR/out/arch/arm64/boot/dtb.img $CIRRUS_WORKING_DIR/AnyKernel
 }
 
 # Mengunggah kernel ke saluran telegram 
