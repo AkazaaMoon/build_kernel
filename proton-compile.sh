@@ -10,7 +10,7 @@ export KBUILD_COMPILER_STRING="$CLANG_VER with $LLD_VER"
 
 KERNEL_ROOTDIR=$CIRRUS_WORKING_DIR/KERNEL
 
-DEVICE_DEFCONFIG=vendor/xiaomi/bengal_defconfig vendor/xiaomi/chime.config
+DEVICE_DEFCONFIG=vendor/xiaomi/bengal_defconfig chime.config
 
 IMGS=$KERNEL_ROOTDIR/out/arch/arm64/boot/Image
 
