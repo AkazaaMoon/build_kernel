@@ -2,7 +2,7 @@
 
 # Kernel Sources!
 git clone --depth=1 https://github.com/c3eru/kernel_citrus -b s $CIRRUS_WORKING_DIR/KERNEL
-git cline --depth=1 https://github.com/c3eru/KernelSU -b main $CIRRUS_WORKING_DIR/KERNEL
+git clone --depth=1 https://github.com/c3eru/KernelSU -b main $CIRRUS_WORKING_DIR/KERNEL
 
 # Tool Chain
 # Proton Clang ---
