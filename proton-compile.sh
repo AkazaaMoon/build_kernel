@@ -10,7 +10,7 @@ export KBUILD_COMPILER_STRING="$CLANG_VER with $LLD_VER"
 
 KERNEL_ROOTDIR=$CIRRUS_WORKING_DIR/KERNEL
 
-DEVICE_DEFCONFIG=vendor/citrus-perf_defconfig
+DEVICE_DEFCONFIG=vendor/bengal-perf_defconfig
 
 IMGS=$KERNEL_ROOTDIR/out/arch/arm64/boot/Image
 
