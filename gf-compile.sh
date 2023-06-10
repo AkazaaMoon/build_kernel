@@ -2,7 +2,7 @@
  
 # Main Declaration
 function ENVIRONTMENT() {
-export KERNEL_NAME=KERNEL-PROTON-CLANG
+export KERNEL_NAME=KERNEL-GF-CLANG
 export KBUILD_BUILD_USER=$BUILD_USER
 export KBUILD_BUILD_HOST=$BUILD_HOST
 export KBUILD_COMPILER_STRING="$CLANG_VER with $LLD_VER"
@@ -10,8 +10,8 @@ export KBUILD_COMPILER_STRING="$CLANG_VER with $LLD_VER"
 KERNEL_ROOTDIR=$CIRRUS_WORKING_DIR/KERNEL
 DEVICE_DEFCONFIG=vendor/bengal-perf_defconfig
 IMGS=$KERNEL_ROOTDIR/out/arch/arm64/boot/Image
-PATH="$CIRRUS_WORKING_DIR/PROTON-CLANG/bin/:$CIRRUS_WORKING_DIR/GCC/bin:$CIRRUS_WORKING_DIR/GCC32/bin:$PATH"
-CLANG_ROOTDIR=$CIRRUS_WORKING_DIR/PROTON-CLANG
+
+CLANG_ROOTDIR=$CIRRUS_WORKING_DIR/GF-CLANG
 CLANG_VER="$("$CLANG_ROOTDIR"/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
 LLD_VER="$("$CLANG_ROOTDIR"/bin/ld.lld --version | head -n 1)"
 
@@ -38,15 +38,10 @@ cd ${KERNEL_ROOTDIR}
 
 make -j$(nproc) O=out ARCH=arm64 SUBARCH=arm64 ${DEVICE_DEFCONFIG}
 make -j$(nproc) ARCH=arm64 SUBARCH=arm64 O=out \
-      CC=clang \
-      AR=llvm-ar \
-      OBJDUMP=llvm-objdump \
-      STRIP=llvm-strip \
-      NM=llvm-nm \
-      OBJCOPY=llvm-objcopy \
-      CROSS_COMPILE=aarch64-linux-gnu- \
-      CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-      LD=ld.lld
+      CC=${CLANG_ROOTDIR}/bin/clang \
+      LD=${CLANG_ROOTDIR}/bin/ld.lld \
+      CROSS_COMPILE=${CLANG_ROOTDIR}/bin/aarch64-linux-gnu- \
+      CROSS_COMPILE_ARM32=${CLANG_ROOTDIR}/bin/arm-linux-gnueabi-
 
 if ! [ -a "$IMGS" ]; then
 FIN-ERROR
@@ -55,7 +50,6 @@ fi
 git clone --depth=1 https://github.com/c3eru/anykernel -b patch $CIRRUS_WORKING_DIR/AnyKernel
 
 cp $IMGS $CIRRUS_WORKING_DIR/AnyKernel
-cp $KERNEL_ROOTDIR/out/arch/arm64/boot/dtbo.img $CIRRUS_WORKING_DIR/AnyKernel
 }
 
 # Push kernel to channel
@@ -86,7 +80,7 @@ function FIN-ERROR() {
 curl -s -X POST "https://api.telegram.org/$TG_TOKEN/sendMessage" -d chat_id="$TG_CHAT_ID" \
       -d "disable_web_page_preview=true" \
       -d "parse_mode=html" \
-      -d text="==============================%0A<b>    Building Kernel PROTON-CLANG Failed!</b>%0A==============================" \
+      -d text="==============================%0A<b>    Building Kernel GF-CLANG Failed!</b>%0A==============================" \
 
 curl -s -X POST "https://api.telegram.org/$TG_TOKEN/sendSticker" \
       -d sticker="CAACAgIAAx0CXjGT1gACDRRhYsUKSwZJQFzmR6eKz2aP30iKqQACPgADr8ZRGiaKo_SrpcJQIQQ" \
