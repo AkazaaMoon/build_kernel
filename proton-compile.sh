@@ -46,15 +46,10 @@ cd ${KERNEL_ROOTDIR}
 
 make -j$(nproc) O=out ARCH=arm64 SUBARCH=arm64 ${DEVICE_DEFCONFIG}
 make -j$(nproc) ARCH=arm64 SUBARCH=arm64 O=out \
-      CC=clang \
-      AR=llvm-ar \
-      OBJDUMP=llvm-objdump \
-      STRIP=llvm-strip \
-      NM=llvm-nm \
-      OBJCOPY=llvm-objcopy \
-      CROSS_COMPILE=aarch64-linux-gnu- \
-      CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-      LD=ld.lld
+      CC=${CLANG_ROOTDIR}/bin/clang \
+      LD=${CLANG_ROOTDIR}/bin/ld.lld \
+      CROSS_COMPILE=${CLANG_ROOTDIR}/bin/aarch64-linux-gnu- \
+      CROSS_COMPILE_ARM32=${CLANG_ROOTDIR}/bin/arm-linux-gnueabi-
 
 if ! [ -a "$IMGS" ]; then
 FIN-ERROR
